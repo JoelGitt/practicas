@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h2>FacesValidator  </h2>
+            <h3>Comprendiendo Ajax y revolver al servidor </h3>
+            <!-- validatorMessage="Seleccione el sexo"-->
+            <h:panelGrid columns="3">
+                <h5></h5>
+                <h4>Nombre :</h4>
+                <h:inputText id="textNombreId"
+                             validator="text.requerido"
+                             value="#{beanBacking.nombre}"
+                             >
+                    <!--<f:ajax execute="@this" render="textNombreId"/>-->
+                    <f:ajax execute="@this" event="change" render="msjText"/>                    
+                </h:inputText>
+                <h:message id="msjText" for="textNombreId" style="font-style: italic;color: coral" showSummary="true"/>
+                <h4>Sexo :</h4>
+                <h:selectOneRadio id="comboSexoId"
+                                  value="#{beanBacking.sexo}"
+                                 validator="combo.requerido "                                 
+                                 valueChangeListener="#{beanBacking.valueChangeSexo}"
+                                 >
+                   <!--  <f:selectItem itemValue="-1" noSelectionOption="true" itemLabel="Seleccion . . . " />-->
+                    <f:selectItem itemValue="1"  itemLabel="Hombre" />
+                    <f:selectItem itemValue="2" itemLabel="Mujer" />
+                    <f:selectItem itemValue="3" itemLabel="Ambos" />
+                    <f:selectItem itemValue="4" itemLabel="Es complicado" />
+                    <f:selectItem itemValue="5" itemLabel="Todavia no me decido" />
+                    <!--<f:ajax execute="@this" event="valueChange" render="msgRadio"/>-->
+                    <f:ajax execute="@this" event="valueChange" render="msgRadio"/>
+                </h:selectOneRadio>                    
+                <h:message id="msgRadio" for="comboSexoId" style="font-style: italic;color: hotpink" showSummary="true"/>
+                <br/>
+                <h4>Color :</h4>
+                <h:selectOneMenu id="comboColorId"
+                                 value="#{beanBacking.color}"
+                                 validator="combo.requerido"
+                                 required="true"                             
+                                 valueChangeListener="#{beanBacking.valueChangeColor}"
+                                 >
+                    <f:selectItem itemValue="-1" noSelectionOption="true" itemLabel="Seleccion . . . " />
+                    <f:selectItem itemValue="1"  itemLabel="Rojo" />
+                    <f:selectItem itemValue="2" itemLabel="Azul" />
+                    <f:selectItem itemValue="3" itemLabel="Blanco" />
+                    <f:ajax execute="@this" event="valueChange" render="msgColor"/>
+                
+                </h:selectOneMenu> 
+                <h:message id="msgColor" for="comboColorId" style="font-style: italic;color: darkviolet" showSummary="true"/>
+                <br/>
+                <br/>
+            </h:panelGrid>
+            <h:commandLink actionListener="#{beanBacking.accion(event)}"
+                           
+                           value="Enviar">
+            </h:commandLink>
+            <!-- <button type="submit" value="Button" ></button>-->
+
+            <br></br>
+            <h2>#{beanBacking.saludo}</h2> 
+        </h:form>
+    </h:body>
+</html>
+
